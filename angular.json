@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "snake": {
+    "snake-game": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -15,7 +15,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "sg",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "snake:build:production"
+              "browserTarget": "snake-game:build:production"
             },
             "development": {
-              "browserTarget": "snake:build:development"
+              "browserTarget": "snake-game:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "snake:build"
+            "browserTarget": "snake-game:build"
           }
         },
         "test": {
@@ -107,5 +107,5 @@
       }
     }
   },
-  "defaultProject": "snake"
+  "defaultProject": "snake-game"
 }

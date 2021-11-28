@@ -1,6 +1,16 @@
-# Snake
+# Snake Game
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.2.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.2 as a 1 hour technical interview with Yopeso through WeAsWeb.
+
+They thought it would be funny to build the snake game in Angular as an 1 hour exercise.
+
+I have to admit, I panicked, I bargained, but with sweat and anxiety I eventually started working on it.
+
+We've got a first functional version before the hour was up and I said I'll upload it to GitHub and make it public. Maybe even finish it up.
+
+So here it is.
+
+
 
 ## Development server
 

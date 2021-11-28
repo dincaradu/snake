@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppComponent } from './layout/app.component';
-import { CanvasComponent } from './canvas/canvas.component';
+// Custom components
+import { LayoutComponent } from './components/layout/layout.component';
+import { BoardComponent } from './components/board/board.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    CanvasComponent
+    LayoutComponent,
+    BoardComponent
   ],
   imports: [
     BrowserModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [LayoutComponent]
 })
 export class AppModule { }
