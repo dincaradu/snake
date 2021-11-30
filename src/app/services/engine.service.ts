@@ -17,6 +17,10 @@ export class EngineService {
   private snakeValue: Array<number> = [];
   private snakeKey: string = 'snake';
 
+  private _food = new BehaviorSubject<Array<number>>([]);
+  private foodValue: Array<number> = [];
+  private foodKey: string = 'snake';
+
   interval: any;
 
   constructor() {
@@ -44,7 +48,6 @@ export class EngineService {
 
   // Settings: Get
   get settings() {
-    console.log('Get settings');
     return this._settings.asObservable();
   }
 
@@ -87,8 +90,6 @@ export class EngineService {
 
   // Snake: Get
   get snake() {
-    console.log('Read snake', this.snakeValue);
-
     return this._snake.asObservable();
   }
 
@@ -203,4 +204,16 @@ export class EngineService {
     this.stopSnake();
     this.set(this.settingsValue);
   }
+
+  // Food: Init
+  initFood(): void {
+
+  }
+
+  // Food: Get
+  get food() {
+    return this._food.asObservable();
+  }
+
+  setFood:
 }
