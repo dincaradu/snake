@@ -1,0 +1,13 @@
+.settings {
+  margin-top: 10px;
+
+  .control {
+    display: block;
+    margin-top: 10px;
+
+    input[type="text"],
+    input[type="number"] {
+      max-width: 50px
+    }
+  }
+}

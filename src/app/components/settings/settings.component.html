@@ -1,0 +1,31 @@
+<div class="settings">
+  <label class="control">
+    <!-- <input type="checkbox" (change)="changeDieOnBorder()" [checked]="settings.dieOnBorder" value="true" /> -->
+    <input type="checkbox" (change)="saveSettings()" [(ngModel)]="settings.dieOnBorder" />
+
+    Die on border
+  </label>
+
+  <label class="control">
+    Board size:
+
+    <input type="number" (change)="saveSettings()" [(ngModel)]="settings.width" /> x
+    <input type="number" (change)="saveSettings()" [(ngModel)]="settings.height" />
+  </label>
+
+  <label class="control">
+    Snake size:
+
+    <input type="number" (change)="saveSettings()" [(ngModel)]="settings.segments" />
+  </label>
+
+  <label class="control">
+    Speed:
+
+    <input type="number" (change)="saveSettings()" [(ngModel)]="settings.interval" />
+  </label>
+
+  <div class="control">
+    <button (click)="resetGame()">Restart Game</button>
+  </div>
+</div>

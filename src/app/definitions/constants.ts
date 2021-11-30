@@ -16,6 +16,7 @@ export const Directions = {
 
 export const DefaultSettings = {
   direction: Directions.stop,
+  dieOnBorder: true,
   height: 25,
   interval: 500,
   segments: 3,

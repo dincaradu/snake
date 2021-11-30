@@ -2,16 +2,16 @@
   display: flex;
   // aspect-ratio: 1.5/1;
   flex-wrap: wrap;
-}
 
-.square {
-  background-color: #aaa;
-  width: 20px;
-  aspect-ratio: 1;
-  border: 1px solid #999;
-  box-sizing: border-box;
-}
+  .square {
+    background-color: #aaa;
+    width: 20px;
+    aspect-ratio: 1;
+    border: 1px solid #999;
+    box-sizing: border-box;
+  }
 
-.snake {
-  background-color: #fff;
+  .snake {
+    background-color: #fff;
+  }
 }
