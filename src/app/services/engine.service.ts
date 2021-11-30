@@ -24,6 +24,8 @@ export class EngineService {
     this.initSnake();
   }
 
+
+  // Settings: Init
   init(newSnake: boolean = false): void {
     console.log('Begin settings init');
     let lsSettings = localStorage.getItem(this.settingsKey);
@@ -40,11 +42,13 @@ export class EngineService {
     console.log('End settings  init');
   }
 
+  // Settings: Get
   get settings() {
     console.log('Get settings');
     return this._settings.asObservable();
   }
 
+  // Settings: Set
   set(settings: iSettings): void {
     console.log('Set settings');
     this.settingsValue = settings;
@@ -53,6 +57,7 @@ export class EngineService {
     localStorage.setItem(this.settingsKey, JSON.stringify(this.settingsValue));
   }
 
+  // Snake: Init
   initSnake(newSnake: boolean = false): void {
     console.log('Begin snake init');
     this.snakeValue = [];
@@ -80,12 +85,14 @@ export class EngineService {
     console.log('End snake init');
   }
 
+  // Snake: Get
   get snake() {
     console.log('Read snake', this.snakeValue);
 
     return this._snake.asObservable();
   }
 
+  // Snake: Set
   setSnake(snake: Array<number>): void {
     console.log('Set snake', snake);
     this.snakeValue = snake;
@@ -94,7 +101,7 @@ export class EngineService {
     localStorage.setItem(this.snakeKey, JSON.stringify(this.snakeValue));
   }
 
-
+  // Snake: Start
   startSnake(): void {
     console.log('Resume the Snake Game');
 
@@ -103,13 +110,14 @@ export class EngineService {
     }, this.settingsValue.interval);
   }
 
+  // Snake: Stop
   stopSnake(): void {
     console.log('Pause the Snake Game');
 
     clearInterval(this.interval);
   }
 
-  // Calculate the next move
+  // Snake: Move
   moveSnake(): void {
     let head: number = this.snakeValue[0];
     let newHead: number = 0;
