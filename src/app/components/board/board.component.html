@@ -1,3 +1,3 @@
-<div class="canvas" [ngStyle]="getBoardStyles()">
+<div class="canvas" [ngClass]="getBoardClasses()" [ngStyle]="getBoardStyles()">
   <div *ngFor="let item of [].constructor(settings.width * settings.height); let i = index;" class="square" [ngClass]="getSquareClasses(i)"></div>
 </div>

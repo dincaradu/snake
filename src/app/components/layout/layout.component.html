@@ -1,3 +1,10 @@
+<h2>Snake game</h2>
+
+<p [ngClass]="getMatchClasses()">Score: {{ match.score }} <i *ngIf="isMatchPaused()">Paused!</i></p>
+
+<p *ngIf="!match.alive" [ngClass]="getMatchClasses()">You lost!</p>
+<p *ngIf="!match.alive">Please click "Restart Game" to start over.</p>
+<p *ngIf="isMatchPaused()">Press W, A, S, D to unpause the game and drive the worm.</p>
 
 <sg-board></sg-board>
 

@@ -18,8 +18,15 @@ export const DefaultSettings = {
   direction: Directions.stop,
   dieOnBorder: true,
   height: 25,
-  interval: 500,
+  interval: 300,
   segments: 3,
   width: 25,
   pixelDensity: 20
+}
+
+export const DefaultMatch = {
+  lastMove: DefaultSettings.direction,
+  alive: true,
+  score: 0,
+  interval: DefaultSettings.interval
 }

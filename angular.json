@@ -107,5 +107,8 @@
       }
     }
   },
-  "defaultProject": "snake-game"
+  "defaultProject": "snake-game",
+  "cli": {
+    "analytics": "5c50a730-74f9-4ffb-aa96-469363d10f1c"
+  }
 }

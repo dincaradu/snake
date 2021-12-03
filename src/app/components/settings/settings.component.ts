@@ -32,11 +32,11 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   saveSettings(): void {
     this.engine.set(this.settings);
+    this.resetGame();
   }
 
   resetGame(): void {
-    this.engine.init(true);
-    this.engine.initSnake(true);
+    this.engine.newGame(true);
   }
 
   ngOnDestroy(): void {

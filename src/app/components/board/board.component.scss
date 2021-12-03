@@ -3,15 +3,23 @@
   // aspect-ratio: 1.5/1;
   flex-wrap: wrap;
 
+  &.you-lost {
+    opacity: .2;
+  }
+
   .square {
-    background-color: #aaa;
+    background-color: #fff;
     width: 20px;
     aspect-ratio: 1;
-    border: 1px solid #999;
+    border: 1px solid #eee;
     box-sizing: border-box;
   }
 
   .snake {
-    background-color: #fff;
+    background-color: green;
+  }
+
+  .food {
+    background-color: purple;
   }
 }

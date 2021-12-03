@@ -1,11 +1,12 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { iMatch } from 'src/app/definitions/match.model';
 
 // Custom service
 import { EngineService } from 'src/app/services/engine.service';
 
 // Custom definitions
-import { DefaultSettings, Directions, Keys } from '../../definitions/constants';
+import { DefaultMatch, DefaultSettings, Directions, Keys } from '../../definitions/constants';
 import { iSettings } from '../../definitions/settings.model';
 
 @Component({
@@ -17,10 +18,14 @@ export class BoardComponent implements OnInit, OnDestroy {
   // Definitions
   settings: iSettings = DefaultSettings;
   snake: Array<number> = [];
+  food: Array<number> = [];
+  match: iMatch = DefaultMatch;
 
   // Subscriptions
   subSnake: Subscription;
   subSettings: Subscription;
+  subFood: Subscription;
+  subMatch: Subscription
 
   constructor(
     private engine: EngineService
@@ -33,6 +38,16 @@ export class BoardComponent implements OnInit, OnDestroy {
     // Get the snake
     this.subSnake = this.engine.snake.subscribe((newSnake) => {
       this.snake = newSnake;
+    });
+
+    // Get the food
+    this.subFood = this.engine.food.subscribe((newFood) => {
+      this.food = newFood;
+    });
+
+    // Get the match
+    this.subMatch = this.engine.match.subscribe((newMatch) => {
+      this.match = newMatch;
     });
   }
 
@@ -62,26 +77,26 @@ export class BoardComponent implements OnInit, OnDestroy {
 
       // UP (if not already going down)
       case Keys.up:
-        if (this.settings.direction != Directions.down) {
+        if (this.match.lastMove != Directions.down) {
           this.settings.direction = Directions.up;
         }
         break;
       // DOWN (if not already going up)
       case Keys.down:
-        if (this.settings.direction != Directions.up) {
+        if (this.match.lastMove != Directions.up) {
           this.settings.direction = Directions.down;
         }
         break;
       // LEFT (if not already going right)
       case Keys.left:
-        if (this.settings.direction != Directions.right) {
+        if (this.match.lastMove != Directions.right) {
           this.settings.direction = Directions.left;
         }
         break;
       // RIGHT (if not already going left)
       case Keys.right:
-        if (this.settings.direction != Directions.left) {
-          this.settings.direction = Directions.right;
+        if (this.match.lastMove!= Directions.left) {
+          this.settings.direction = Directions.right; 
         }
         break;
 
@@ -106,7 +121,18 @@ export class BoardComponent implements OnInit, OnDestroy {
     return isSnake;
   }
 
-  // Should draw the snake on the board
+  // Should draw the food on the board
+  isFood(index = -1): boolean {
+    let isFood = false;
+
+    if (this.food[0] == index) {
+      isFood = true;
+    }
+
+    return isFood;
+  }
+
+  // Should draw the snake head on the board
   isSnakeHead(index = -1): boolean {
     let isSnakeHead = false;
 
@@ -127,11 +153,21 @@ export class BoardComponent implements OnInit, OnDestroy {
     return boardStyles;
   }
 
+  getBoardClasses(): any {
+    let boardClasses = {
+      'you-lost': !this.match.alive,
+      'still-playing': this.match.alive
+    }
+
+    return boardClasses;
+  }
+
   // Get each square's classes
   getSquareClasses(squareIdx: number): any {
     let squareClasses = {
       'snake': this.isSnake(squareIdx),
-      'head': this.isSnakeHead(squareIdx)
+      'head': this.isSnakeHead(squareIdx),
+      'food': this.isFood(squareIdx)
     }
 
     return squareClasses;
@@ -146,6 +182,14 @@ export class BoardComponent implements OnInit, OnDestroy {
 
     if (this.subSnake) {
       this.subSnake.unsubscribe();
+    }
+
+    if (this.subFood) {
+      this.subFood.unsubscribe();
+    }
+
+    if (this.subMatch) {
+      this.subMatch.unsubscribe();
     }
   }
 }
