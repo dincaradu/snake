@@ -71,8 +71,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     switch (event.key.toLowerCase()) {
       // In case of unimplemented key, log to console
       default:
-        console.log(this.engine.interval);
-        console.log(event.key);
+        // console.log(this.engine.interval);
+        // console.log(event.key);
         break;
 
       // UP (if not already going down)
@@ -156,7 +156,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   getBoardClasses(): any {
     let boardClasses = {
       'you-lost': !this.match.alive,
-      'still-playing': this.match.alive
+      'still-playing': this.match.alive,
+      'die-on-border': this.settings.dieOnBorder
     }
 
     return boardClasses;

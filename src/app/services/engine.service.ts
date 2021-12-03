@@ -38,7 +38,7 @@ export class EngineService {
 
   // Settings: Init
   init(newSnake: boolean = false): void {
-    console.log('Begin settings init');
+    // console.log('Begin settings init');
     let lsSettings = localStorage.getItem(this.settingsKey);
 
     if (lsSettings) {
@@ -50,7 +50,7 @@ export class EngineService {
     }
 
     this._settings.next(this.settingsValue);
-    console.log('End settings  init');
+    // console.log('End settings  init');
   }
 
   // Settings: Get
@@ -60,7 +60,7 @@ export class EngineService {
 
   // Settings: Set
   set(settings: iSettings): void {
-    console.log('Set settings');
+    // console.log('Set settings');
     this.settingsValue = settings;
     this._settings.next(settings);
 
@@ -69,7 +69,7 @@ export class EngineService {
 
   // Snake: Init
   initSnake(newSnake: boolean = false): void {
-    console.log('Begin snake init');
+    // console.log('Begin snake init');
     this.snakeValue = [];
     let lsSnake = localStorage.getItem(this.snakeKey);
 
@@ -77,7 +77,7 @@ export class EngineService {
       this.snakeValue = JSON.parse(lsSnake);
       this._snake.next(this.snakeValue);
 
-      console.log('Load snake from localstorage:', this.snake);
+      // console.log('Load snake from localstorage:', this.snake);
     }
 
     if (this.snakeValue.length == 0 || newSnake) {
@@ -89,11 +89,11 @@ export class EngineService {
         this._snake.next(this.snakeValue);
       }
 
-      console.log('Generate snake on the middle of the board:', this.snakeValue);
+      // console.log('Generate snake on the middle of the board:', this.snakeValue);
     }
 
     localStorage.setItem(this.snakeKey, JSON.stringify(this.snakeValue));
-    console.log('End snake init');
+    // console.log('End snake init');
   }
 
   // Snake: Get
@@ -103,7 +103,7 @@ export class EngineService {
 
   // Snake: Set
   setSnake(snake: Array<number>): void {
-    console.log('Set snake', snake);
+    // console.log('Set snake', snake);
     this.snakeValue = snake;
     this._snake.next(snake);
 
@@ -112,7 +112,7 @@ export class EngineService {
 
   // Snake: Start
   startSnake(): void {
-    console.log('Resume the Snake Game');
+    // console.log('Resume the Snake Game');
 
     this.interval = setInterval(() => {
       this.moveSnake();
@@ -121,7 +121,7 @@ export class EngineService {
 
   // Snake: Stop
   stopSnake(): void {
-    console.log('Pause the Snake Game');
+    // console.log('Pause the Snake Game');
 
     this.matchValue.lastMove = this.settingsValue.direction;
     this.setMatch(this.matchValue)
@@ -230,7 +230,7 @@ export class EngineService {
 
   // Kill the snake
   killTheSnake(): void {
-    console.log("The snake died!");
+    // console.log("The snake died!");
     this.settingsValue.direction = Directions.stop;
     this.matchValue.alive = false;
     this.setMatch(this.matchValue);
@@ -247,17 +247,17 @@ export class EngineService {
       this.foodValue = JSON.parse(lsFood);
       this._food.next(this.foodValue);
 
-      console.log('Load food from localstorage:', this.foodValue);
+      // console.log('Load food from localstorage:', this.foodValue);
     }
 
     if (this.foodValue.length == 0 || newFood) {
       this.serveDinner(true);
 
-      console.log('Generate food on the board:', this.foodValue);
+      // console.log('Generate food on the board:', this.foodValue);
     }
 
     localStorage.setItem(this.foodKey, JSON.stringify(this.foodValue));
-    console.log('End food init');
+    // console.log('End food init');
   }
 
   // Food: Get
@@ -267,7 +267,7 @@ export class EngineService {
 
   // Food: Set
   setFood(food: Array<number>): void {
-    console.log('Set food', food);
+    // console.log('Set food', food);
     this.foodValue = food;
     this._food.next(food);
 
@@ -276,14 +276,14 @@ export class EngineService {
 
   // Food: generate location
   getFoodLocation(): number {
-    console.log('Generate new food location');
+    // console.log('Generate new food location');
 
     let maxIndex = this.settingsValue.width * this.settingsValue.height - 1;
     let foodLocation = Math.floor(Math.random() * maxIndex);
 
     // If the coordinates are already occupied, get a new location
     if (!this.isValidFoodLocation(foodLocation)) {
-      console.log('The chosen location is already occupied');
+      // console.log('The chosen location is already occupied');
 
       foodLocation = this.getFoodLocation();
     }
@@ -306,7 +306,7 @@ export class EngineService {
   serveDinner(newGame: boolean = false): void {
     if (!newGame) {
       // Consume the current dinner if it's not a new game
-      console.log('Clear the current plate')
+      // console.log('Clear the current plate')
 
       this.updateScoreBy(1);
       this.foodValue.shift();
@@ -322,34 +322,32 @@ export class EngineService {
   }
 
   initMatch(newMatch: boolean = false): void {
-    console.log('Begin match init');
+    // console.log('Begin match init');
 
     let lsMatch = localStorage.getItem(this.matchKey);
 
     if (lsMatch && !newMatch) {
-      console.log('Load match from localstorage:', this.match);
-      this.setMatch(JSON.parse(lsMatch), false);
+      // console.log('Load match from localstorage:', this.match);
+      this.setMatch(JSON.parse(lsMatch));
     }
 
     if (newMatch) {
       this.setMatch(DefaultMatch);
     }
 
-    console.log('End match init');
+    // console.log('End match init');
   }
   
   get match() {
     return this._match.asObservable();
   }
 
-  setMatch(match: iMatch, save: boolean = true): void {
-    console.log('Set match', match);
+  setMatch(match: iMatch): void {
+    // console.log('Set match', match);
     this.matchValue = match;
     this._match.next(match);
 
-    if (save) {
-      localStorage.setItem(this.matchKey, JSON.stringify(this.matchValue));
-    }
+    localStorage.setItem(this.matchKey, JSON.stringify(this.matchValue));
   }
 
   updateScoreBy(change: number): void {

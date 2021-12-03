@@ -6,6 +6,9 @@
   &.you-lost {
     opacity: .2;
   }
+  &.die-on-border {
+    border: 1px solid red;
+  }
 
   .square {
     background-color: #fff;
