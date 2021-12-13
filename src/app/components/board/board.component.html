@@ -1,3 +1,14 @@
+<h2>Snake game</h2>
+
+<p [ngClass]="getMatchClasses()">Score: {{ match.score }} <i *ngIf="isMatchPaused()">Paused!</i></p>
+
 <div class="canvas" [ngClass]="getBoardClasses()" [ngStyle]="getBoardStyles()">
-  <div *ngFor="let item of [].constructor(settings.width * settings.height); let i = index;" class="square" [ngClass]="getSquareClasses(i)"></div>
+  <div *ngFor="let item of engine.getSquares(); let i = index;" class="square" [ngClass]="getSquareClasses(i)"></div>
 </div>
+
+<p *ngIf="!match.alive" [ngClass]="getMatchClasses()">You lost!</p>
+<p *ngIf="!match.alive">Please click "Restart Game" to start over.</p>
+<p *ngIf="isMatchPaused()">Press W, A, S, D to unpause the game and drive the worm.</p>
+<button (click)="startNewGame()">Start new game</button>
+
+<sg-settings></sg-settings>

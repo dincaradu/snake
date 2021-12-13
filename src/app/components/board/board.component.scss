@@ -4,7 +4,7 @@
   flex-wrap: wrap;
 
   &.you-lost {
-    opacity: .2;
+    opacity: 0.2;
   }
   &.die-on-border {
     border: 1px solid red;
@@ -24,5 +24,18 @@
 
   .food {
     background-color: purple;
+  }
+}
+
+p {
+  &.still-playing,
+  &.you-lost {
+    color: red;
+    font-weight: bolder;
+    display: block;
+  }
+
+  &.still-playing {
+    color: green;
   }
 }

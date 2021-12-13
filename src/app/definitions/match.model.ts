@@ -1,6 +1,7 @@
 export interface iMatch {
-  lastMove: string;
   alive: boolean;
-  score: number;
+  direction: string;
   interval: number;
+  lastMove: string;
+  score: number;
 }

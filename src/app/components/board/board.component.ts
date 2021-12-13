@@ -17,44 +17,49 @@ import { iSettings } from '../../definitions/settings.model';
 export class BoardComponent implements OnInit, OnDestroy {
   // Definitions
   settings: iSettings = DefaultSettings;
+  match: iMatch = DefaultMatch;
   snake: Array<number> = [];
   food: Array<number> = [];
-  match: iMatch = DefaultMatch;
 
   // Subscriptions
-  subSnake: Subscription;
   subSettings: Subscription;
-  subFood: Subscription;
   subMatch: Subscription
+  subSnake: Subscription;
+  subFood: Subscription;
 
   constructor(
-    private engine: EngineService
+    public engine: EngineService
   ) {
     // Get the settings
-    this.subSettings = engine.settings.subscribe((newSettings) => {
+    this.subSettings = this.engine.settings.subscribe((newSettings) => {
+      console.log('new settings', newSettings);
       this.settings = newSettings;
     });
-
+    
     // Get the snake
     this.subSnake = this.engine.snake.subscribe((newSnake) => {
+      console.log('new snake', newSnake);
       this.snake = newSnake;
     });
-
+    
     // Get the food
     this.subFood = this.engine.food.subscribe((newFood) => {
+      console.log('new food', newFood);
       this.food = newFood;
     });
-
+    
     // Get the match
     this.subMatch = this.engine.match.subscribe((newMatch) => {
+      console.log('new match', newMatch);
       this.match = newMatch;
     });
   }
 
   // Start on init
   ngOnInit(): void {
-    if (this.settings.direction != Directions.stop) {
-      this.settings.direction = Directions.stop;
+    if (this.match.direction != Directions.stop) {
+      this.match.direction = Directions.stop;
+      this.engine.setMatch(this.match);
     }
   }
 
@@ -64,7 +69,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     let startKeys = [Keys.up, Keys.down, Keys.left, Keys.right];
 
     if (startKeys.indexOf(event.key.toLowerCase()) > -1 &&
-      this.settings.direction === Directions.stop) {
+      this.match.lastMove === Directions.stop) {
       this.engine.startSnake();
     }
 
@@ -78,36 +83,35 @@ export class BoardComponent implements OnInit, OnDestroy {
       // UP (if not already going down)
       case Keys.up:
         if (this.match.lastMove != Directions.down) {
-          this.settings.direction = Directions.up;
+          this.match.direction = Directions.up;
         }
         break;
       // DOWN (if not already going up)
       case Keys.down:
         if (this.match.lastMove != Directions.up) {
-          this.settings.direction = Directions.down;
+          this.match.direction = Directions.down;
         }
         break;
       // LEFT (if not already going right)
       case Keys.left:
         if (this.match.lastMove != Directions.right) {
-          this.settings.direction = Directions.left;
+          this.match.direction = Directions.left;
         }
         break;
       // RIGHT (if not already going left)
       case Keys.right:
         if (this.match.lastMove!= Directions.left) {
-          this.settings.direction = Directions.right; 
+          this.match.direction = Directions.right; 
         }
         break;
 
       // SPACE
       case Keys.space:
-        this.settings.direction = Directions.stop;
         this.engine.stopSnake();
         break
     }
 
-    this.engine.set(this.settings);
+    this.engine.setMatch(this.match)
   }
 
   // Should draw the snake on the board
@@ -143,6 +147,10 @@ export class BoardComponent implements OnInit, OnDestroy {
     return isSnakeHead;
   }
 
+  isMatchPaused(): boolean { 
+    return this.match.lastMove == Directions.stop && this.match.alive;
+  }
+
   // Get inline board styles like width and height
   getBoardStyles(): any {
     let boardStyles = {
@@ -157,7 +165,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     let boardClasses = {
       'you-lost': !this.match.alive,
       'still-playing': this.match.alive,
-      'die-on-border': this.settings.dieOnBorder
+      'die-on-border': this.settings.dieOnBorder,
+      'paused': this.match.lastMove == Directions.stop && this.match.alive
     }
 
     return boardClasses;
@@ -172,6 +181,20 @@ export class BoardComponent implements OnInit, OnDestroy {
     }
 
     return squareClasses;
+  }
+
+  getMatchClasses(): any {
+    let matchClasses = {
+      'you-lost': !this.match.alive,
+      'still-playing': this.match.alive,
+      'paused': this.match.lastMove == Directions.stop && this.match.alive
+    }
+
+    return matchClasses;
+  }
+
+  startNewGame(): void {
+    this.engine.newGame(true);
   }
 
   ngOnDestroy() {

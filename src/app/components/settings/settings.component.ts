@@ -32,10 +32,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   saveSettings(): void {
     this.engine.set(this.settings);
-    this.resetGame();
-  }
-
-  resetGame(): void {
     this.engine.newGame(true);
   }
 

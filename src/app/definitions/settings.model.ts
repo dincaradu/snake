@@ -1,9 +1,8 @@
 export interface iSettings {
-  direction: string;
   dieOnBorder: boolean;
   height: number;
   interval: number;
+  pixelDensity: number;
   segments: number;
   width: number;
-  pixelDensity: number;
 }

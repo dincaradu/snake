@@ -1,32 +1,32 @@
 export const Keys = {
-  up: 'w',
   down: 's',
   left: 'a',
   right: 'd',
-  space: ' '
+  space: ' ',
+  up: 'w'
 };
 
 export const Directions = {
-  up: 'up',
   down: 'down',
   left: 'left',
   right: 'right',
-  stop: 'stop'
+  stop: 'stop',
+  up: 'up'
 }
 
 export const DefaultSettings = {
-  direction: Directions.stop,
   dieOnBorder: true,
   height: 25,
   interval: 300,
+  pixelDensity: 20,
   segments: 3,
-  width: 25,
-  pixelDensity: 20
+  width: 25
 }
 
 export const DefaultMatch = {
-  lastMove: DefaultSettings.direction,
   alive: true,
-  score: 0,
-  interval: DefaultSettings.interval
+  direction: Directions.stop,
+  interval: DefaultSettings.interval,
+  lastMove: Directions.stop,
+  score: 0
 }
